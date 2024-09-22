@@ -8,7 +8,6 @@ document.addEventListener('alpine:init', () => {
             { name: "x2", f: (scores, player) => scores[player] },
             {
                 name: "SWAP SCORES", f: (scores, player) => {
-                    debugger;
                     tmp = scores[1];
                     scores[1] = scores[0];
                     scores[0] = tmp;
@@ -35,7 +34,6 @@ document.addEventListener('alpine:init', () => {
         scoreToShow: null,
 
         startAddStrength() {
-            console.log('startAddStrength');
             this.addStrengthInterval = setInterval(() => {
                 this.addStrength()
             }, 20)
@@ -56,18 +54,15 @@ document.addEventListener('alpine:init', () => {
         },
 
         clearStrength() {
-            console.log('clearStrength');
             clearInterval(this.addStrengthInterval);
             this.strength = 0;
             this.$refs.strengthBar.style.width = '0%';
         },
 
         throwDuck() {
-            console.log('throwDuck');
             this.duckSpeed = this.strength / 10;
             // Add some randomness between -1 and 1
             const randomness = Math.random() * 2 - 1;
-            console.log('Randomness:', randomness);
             this.duckSpeed += randomness
             this.moveDuckInterval = setInterval(() => {
                 this.moveDuck()
@@ -90,7 +85,6 @@ document.addEventListener('alpine:init', () => {
             const itemHeight = boardHeight / this.boardItems.length;
             const duckHeightPercent = (duckHeight / boardHeight) * 100;
             const itemIndex = Math.floor((this.duckPos - (duckHeight / 2)) / itemHeight);
-            console.log(duckHeight, boardHeight, itemHeight, duckHeightPercent, this.duckPos, itemIndex);
             this.duckItemPos = itemIndex;
         },
 
@@ -101,9 +95,7 @@ document.addEventListener('alpine:init', () => {
 
         scoreDuck() {
             // Check if the duck has landed on a board item
-            console.log('Item index:', this.duckItemPos);
             const item = this.boardItems[this.duckItemPos];
-            console.log('Item:', item);
 
             // Execute the board item's function
             let thisScore = 0;
