@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>The TM ShuffleBoard Game</title>
     <meta name="description" content="">
 
     <link rel="stylesheet" href="/css/styles.css">
@@ -13,7 +13,7 @@
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Home Page">
+    <meta property="og:title" content="The TM ShuffleBoard Game">
     <meta property="og:description" content="">
     <meta property="og:image" content="">
 
@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="">
     <meta property="twitter:url" content="">
-    <meta name="twitter:title" content="Home Page">
+    <meta name="twitter:title" content="The TM ShuffleBoard Game">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="">
 </head>
@@ -31,15 +31,60 @@
 
 <body>
     
+<h1 class="mt-4 mb-4 md:mb-12 text-xl md:text-6xl text-center">ShuffleDuck</h1>
 
-<h1 class="mt-8 text-6xl text-center">Hello, World!</h1>
+<div x-data="shuffleboard" class="m-auto w-1/2 max-w-screen-md relative">
+    <div id="board" x-ref="board" class="border mb-20 relative">
+        <template x-for="(item, index) in boardItems" :key="index">
+            <div class="w-full h-10 leading-10 border-b last:border-b-0 text-center font-bold text-xl"
+                :class="{'bg-green-500': index === duckItemPos}" x-text="item.name">
+            </div>
+        </template>
+        <div id="duck" x-ref="duck" class="w-8 h-8 absolute text-2xl text-center"
+            style="transform: translateY(-100%); top: 0; left: 10px;">🐥</div>
 
-    <h2 class="mt-4 text-2xl text-center">Sssh, we're only testing!</h2>
+    </div>
+
+    <div id="controls-container" class="fixed bottom-0 left-0 pt-2 w-full bg-white border-t-2">
+        <div id="controls" class="px-4 md:w-1/2 max-w-screen-md mx-auto">
+            <div class="mb-1 flex flex-col items-center">
+                <div id="strengthBarContainer" class="w-60 md:w-2/3  h-3 border mb-2">
+                    <div x-ref="strengthBar" style="width: 0" class="h-full bg-green-500"></div>
+                </div>
+            </div>
+            <div class="mb-2 flex justify-between items-center">
+                <div class="w-1/3 text-center border py-2" :class="player === 0 && 'bg-yellow-200'">
+                    <h2 class="text-sm">Player 1</h2>
+                    <p class="font-bold text-lg" x-text="scores[0]"></p>
+                </div>
+
+                <button class="w-14 h-14 mb-2 -bottom-5 bg-red-600 rounded-full shadow-md shadow-black"
+                    disabled="scoreToShow" @mouseDown.prevent="startAddStrength" @touchStart.prevent="startAddStrength"
+                    @mouseUp.prevent="stopAddStrength" @touchEnd.prevent="stopAddStrength" @mouseleave="clearStrength">
+                </button>
+
+                <div class="w-1/3 text-center border py-2" :class="player === 1 && 'bg-yellow-200'">
+                    <h2 class="text-sm">Player 2</h2>
+                    <p class="font-bold text-lg" x-text="scores[1]"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="scoreJumbotron"
+        class="fixed inset-0 w-screen h-screen flex items-center justify-center bg-white bg-opacity-70"
+        x-show="scoreToShow">
+        <span x-text="scoreToShow" class="text-9xl font-bold" x-transition:enter.duration.1000ms.opacity.30.scale.50
+            x-show="scoreToShow"></span>
+    </div>
+</div>
 
 
     <footer class="">
 </footer>
 
+<script defer src="/game.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
