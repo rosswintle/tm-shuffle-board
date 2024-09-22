@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Special Elite';
+    src: url('/fonts/Special_Elite/SpecialElite-Regular.ttf') format('truetype');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

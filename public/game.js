@@ -3,7 +3,7 @@ document.addEventListener('alpine:init', () => {
         boardItems: [
             { name: "-6", f: (scores, player) => -6 },
             { name: "2", f: (scores, player) => 2 },
-            { name: "➗2", f: (scores, player) => 0 - (Math.round(scores[player] / 2)) },
+            { name: "÷2", f: (scores, player) => 0 - (Math.round(scores[player] / 2)) },
             { name: "4", f: (scores, player) => 4 },
             { name: "x2", f: (scores, player) => scores[player] },
             {
