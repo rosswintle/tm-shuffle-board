@@ -34,12 +34,16 @@ document.addEventListener('alpine:init', () => {
         scoreToShow: null,
 
         startAddStrength() {
+            // Do nothing if duck is thrown
+            if (this.duckSpeed > 0) { return }
             this.addStrengthInterval = setInterval(() => {
                 this.addStrength()
             }, 20)
         },
 
         stopAddStrength() {
+            // Do nothing if duck is thrown
+            if (this.duckSpeed > 0) { return }
             clearInterval(this.addStrengthInterval);
             if (this.strength > 0) {
                 this.throwDuck();
@@ -62,7 +66,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         throwDuck() {
-            this.duckSpeed = this.strength / 10;
+            this.duckSpeed = Math.min(this.strength / 10, 10);
             // Add some randomness between -1 and 1
             const randomness = Math.random() * 2 - 1;
             this.duckSpeed += randomness
