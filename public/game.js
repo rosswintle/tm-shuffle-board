@@ -41,7 +41,9 @@ document.addEventListener('alpine:init', () => {
 
         stopAddStrength() {
             clearInterval(this.addStrengthInterval);
-            this.throwDuck();
+            if (this.strength > 0) {
+                this.throwDuck();
+            }
         },
 
         addStrength() {
@@ -64,6 +66,9 @@ document.addEventListener('alpine:init', () => {
             // Add some randomness between -1 and 1
             const randomness = Math.random() * 2 - 1;
             this.duckSpeed += randomness
+            if (this.duckSpeed < 0) {
+                this.duckSpeed = 0;
+            }
             this.moveDuckInterval = setInterval(() => {
                 this.moveDuck()
             }, 20)
